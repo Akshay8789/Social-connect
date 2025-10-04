@@ -1,4 +1,4 @@
-# 📝 Mini Backend Project
+# 📝 Social-connect
 
 A simple backend application built using **Node.js**, **Express**, and **MongoDB** to practice core backend development concepts like user authentication, post management, and basic CRUD operations.
 
