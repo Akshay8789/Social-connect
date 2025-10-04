@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+    <div class="bg-zinc-900 w-full min-h-screen overflow-x-hidden text-white p-9">
+        <div class="flex justify-between">
+            <h1 class="text-3xl">Your Posts :</h1>
+            <div class="flex gap-2 ">
+                <i class="fas fa-code text-green-400 mt-1"></i>
+                <h1 class="text-base mr-9 ">
+                    <%=user.username%>
+                </h1>
+                <button class="pb-5 hover:text-red-500 flex items-center gap-2">
+                    <a href="/logout" class="text-xl">Logout</a>
+                    <i class="fas fa-right-from-bracket text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <hr>
+
+        <a class="mb-[8.5vh] block mt-5 ml-9 underline text-yellow-600" href="/createPost">Wanna create new post?</a>
+
+        <div class="cards flex flex-wrap gap-8 ml-28">
+
+           <% if (!posts || posts.length === 0) { %>
+    <h1 class="text-white text-2xl">No posts found.</h1>
+  <% }  %>
+
+            <% posts.forEach(post=> { 
+              const isLiked = post.like.includes(user.userID);
+                %>
+                <div class="card1 border h-[70vh] w-[22vw] rounded-md">
+                    <div class="imageDIV border m-2 h-[42vh] border-2 rounded-md overflow-hidden">
+                        <img class="h-full w-full object-cover" src="<%= post.image %>" alt="Post Image">
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button
+                            class="text-gray-400 text-3xl  <%= isLiked ? 'text-red-500' : 'text-gray-400' %> ml-4 transition duration-300 ease-in-out">
+                            <a href="/like/<%= post._id %>">
+                                <i class="fas fa-heart"></i>
+                            </a>
+                        </button>
+                        <div class="mr-4 flex">
+                            <a href="/delete/<%= post._id %>">
+                                <i class="fas fa-trash text-red-400 text-2xl cursor-pointer"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mx-3 text-sm ml-5 mt-2">
+                        <p>
+                            <%= post.description %>
+                        </p>
+                    </div>
+
+                    <div class="username mt-2 ml-6 text-sm">
+                        <h1 class="text-zinc-500">author: <%= user.username %>
+                        </h1>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+
+
+    </div>
+</body>
+
+</html>
